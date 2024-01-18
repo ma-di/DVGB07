@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using DVGB07.Lab1;
+
+EvenNum evenNum = new EvenNum();
