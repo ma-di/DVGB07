@@ -1,3 +1,4 @@
 ﻿using DVGB07.Lab1;
 
-EvenNum evenNum = new EvenNum();
+Lab1 lab1 = new Lab1();
+
