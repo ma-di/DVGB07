@@ -14,7 +14,7 @@ namespace DVGB07.Lab1
         /// </summary>
         public Lab1()
         {
-            md();
+            Lotto();
         }
         /// <summary>
         /// Skriv ett konsollprogram som skriver jämna heltal från 0 till 30. 
@@ -36,13 +36,22 @@ namespace DVGB07.Lab1
         void CheckNum()
         {
             string str_num = Console.ReadLine();
-            int num = int.Parse(str_num);
-            if (num == 0)
-                Console.WriteLine("The number is zero");
-            else if (num > 0)
-                Console.WriteLine("The number is positive");
-            else 
-                Console.WriteLine("The number is negative");
+            try
+            {
+                int num = int.Parse(str_num);
+                if (num == 0)
+                    Console.WriteLine("The number is zero");
+                else if (num > 0)
+                    Console.WriteLine("The number is positive");
+                else
+                    Console.WriteLine("The number is negative");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+            
         }
         /// <summary>
         /// 3. Skriv ett konsollprogram som läser in ett tal n, och sedan läser in n värden från användaren. Därefter ska programmet skriva ut det minsta och det största värdet. 
@@ -50,37 +59,50 @@ namespace DVGB07.Lab1
         void MinMax()
         {
             Console.WriteLine("enter the size of array:");
-            int n = int.Parse((string) Console.ReadLine());
-
-            int min=0, max=0;
+            int min = 0, max = 0;
             bool isFirst = true;
 
-            while(n != 0)
+            try
             {
-                int num= int.Parse(Console.ReadLine());                
+                int n = int.Parse((string)Console.ReadLine());
 
-                if (isFirst)
+
+
+                while (n != 0)
                 {
-                    min = num;
-                    max = num;
-                    isFirst = false;
-                }
-                else
-                {
-                    if( num < min ) 
+                    int num = int.Parse(Console.ReadLine());
+
+                    if (isFirst)
                     {
                         min = num;
+                        max = num;
+                        isFirst = false;
                     }
-                    else if( num > max )
+                    else
                     {
-                        max= num;
+                        if (num < min)
+                        {
+                            min = num;
+                        }
+                        else if (num > max)
+                        {
+                            max = num;
+                        }
+
                     }
 
+                    n--;
                 }
-
-                n--;
+                Console.WriteLine($"min= {min}, max= {max}");
+            }catch (FormatException)
+            {
+                Console.WriteLine("Invalid Format");
             }
-            Console.WriteLine($"min= {min}, max= {max}");
+            catch (OverflowException) 
+            {
+                Console.WriteLine("Too big or too small integer value");
+            }
+            
         }
 
         /// <summary>
@@ -112,51 +134,153 @@ namespace DVGB07.Lab1
         {
             int n =10;
             Console.WriteLine("Skriv in 10 decimal tal:");
+            decimal[] array = new decimal[n];
+            decimal avg = 0, mdn = 0;
 
-            decimal[] array= new decimal[n];
-            decimal avg=0, mdn=0;
-
-            for (int i=0; i<n; i++)
+            try
             {
-                array[i]= decimal.Parse(Console.ReadLine());
-            }
-            for (int i = 0; i < n; i++)
-            {
-                avg += array[i];                
-            }
-            avg /= n;
-
-            for (int i =0; i < n; i++)
-            {
-                for (int j= 0; j < n-1-i; j++)
+                for (int i = 0; i < n; i++)
                 {
-                    if (array[j] > array[j + 1])
-                    {
-                        decimal temp = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = temp;
-                    }
+                    array[i] = decimal.Parse(Console.ReadLine());
                 }
-                
-            }            
+                for (int i = 0; i < n; i++)
+                {
+                    avg += array[i];
+                }
+                avg /= n;
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n - 1 - i; j++)
+                    {
+                        if (array[j] > array[j + 1])
+                        {
+                            decimal temp = array[j];
+                            array[j] = array[j + 1];
+                            array[j + 1] = temp;
+                        }
+                    }
+
+                }
                 if (n % 2 == 0)
                 {
                     //mdn = (array[n / 2] + array[(n / 2) + 1]) / 2;
-                int m1 = n / 2;
-                int m2 = n / 2 - 1;
-                mdn= (array[m1]+ array[m2])/2;
+                    int m1 = n / 2;
+                    int m2 = n / 2 - 1;
+                    mdn = (array[m1] + array[m2]) / 2;
                 }
                 else
                 {
-                mdn = (array[(n / 2)]);
+                    mdn = (array[(n / 2)]);
                 }
 
 
 
-            Console.WriteLine($"Avrage= {avg}, Median= {mdn}");
-            Console.WriteLine();
+                Console.WriteLine($"Avrage= {avg}, Median= {mdn}");
+                Console.WriteLine();
 
+
+            }catch (FormatException) 
+            {
+                Console.WriteLine("Invalid Format!");
+            }catch (OverflowException)
+            {
+                Console.WriteLine("Too big or too small integer value");
+            }
 
         }
+
+
+        void sum ()
+        {
+            Console.WriteLine("Enter two numbers to add:");
+            int a, b;
+            try
+            {
+                a = int.Parse(Console.ReadLine());
+                b = int.Parse(Console.ReadLine());
+                Console.WriteLine(a + b);
+            }
+            catch (FormatException)
+            {
+                print("Invalid Format!");
+            }
+            catch(OverflowException)
+            {
+                print("Too big or too small integer value");
+            }
+            
+
+        }
+
+        void IsAlpha()
+        {
+            char c= char.Parse(Console.ReadLine());
+
+            if ((c>=65 && c<=90) || (c>=97 && c<=122)) 
+            {
+                Console.WriteLine($"{c} is Alpha");                
+            }
+            else
+            {
+                Console.WriteLine($"{c} is NOT Alpha");
+            }
+
+        }
+
+        void print(string s)
+        {
+            Console.WriteLine(s);
+        }
+        /// <summary>
+        /// Skriv ett konsollprogram som slumpar en ny lottorad varje gång användaren trycker på Enter. En lottorad innehåller sju unika tal från 1 till och med 36. 
+        /// </summary>
+        void Lotto()
+        {
+            Console.WriteLine();
+            int n = 7;
+            Random random = new Random();
+            int[] lotto = new int[n];
+            while (true)
+            {
+                string enter = Console.ReadLine();
+                if(enter=="")
+                {
+                    
+                    for (int i = 0; i < n; i++)
+                    {
+                        int rand;
+                        bool isDuplicate;
+
+                        do
+                        {
+                            rand = random.Next(1, 37);
+                            isDuplicate = false;
+
+                            for(int j = 0; j < i; j++) // check for duplicate => if so generate random again
+                            {
+                                if(lotto[j] == rand)
+                                {                                    
+                                    isDuplicate |= true;
+                                    break;
+                                }
+                            }
+                        } while (isDuplicate);
+
+                        lotto[i] = rand;
+                    }
+                }
+
+                Console.WriteLine();
+
+                Array.Sort(lotto);
+                foreach (int i in lotto)
+                {
+                    Console.Write($"{i} ");
+                }
+            }                      
+        }
+
+
     }
 }
