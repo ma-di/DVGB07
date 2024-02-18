@@ -23,7 +23,6 @@ namespace Lab2_lotto
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        //int num1, num2, num3, num4, num5, num6, num7;
         int n;
         int [] dinRad;
         int[] lotto;
@@ -140,52 +139,6 @@ namespace Lab2_lotto
             
 
         }
-        private bool isCorrect()
-        {
-            for (int i = 0; i < n; i++)
-            {
-                if (dinRad[i] <= 0 || dinRad[i] > 35)
-                {
-                    Debug.WriteLine("You got over/under the range!");
-                    return false;
-                }
-            }
-            for (int i = 0; i < n; i++)
-            {
-                if (dinRad[i].GetType() != typeof(int))
-                {
-                    Debug.WriteLine("You got wrong type!");
-                    return false;
-                }
-            }
-            /*
-            num1 = int.Parse(tBoxNum1.Text.ToString());
-            num2 = int.Parse(tBoxNum2.Text.ToString());
-            num3 = int.Parse(tBoxNum3.Text.ToString());
-            num4 = int.Parse(tBoxNum4.Text.ToString());
-            num5 = int.Parse(tBoxNum5.Text.ToString());
-            num6 = int.Parse(tBoxNum6.Text.ToString());
-            num7 = int.Parse(tBoxNum7.Text.ToString());
-
-            if (num1.GetType() != typeof(int))
-                return false;
-            if (num1 <= 0 || num1 > 35)
-                return false;
-            if (num2 <= 0 || num1 > 35)
-                return false;
-            if (num3 <= 0 || num1 > 35)
-                return false;
-            if (num4 <= 0 || num1 > 35)
-                return false;
-            if (num5 <= 0 || num1 > 35)
-                return false;
-            if (num6 <= 0 || num1 > 35)
-                return false;
-            if (num7 <= 0 || num1 > 35)
-                return false;
-            */
-            return true;
-        }
         void dinLottoRad() 
         {            
             for (int i = 0; i<n; i++)
@@ -231,89 +184,6 @@ namespace Lab2_lotto
                 }
             }
             return true;
-        }
-        void femCorrect()
-        {
-            //sArray.Sort(dinRad);
-            //int compareLength = 5; // Compare the first five elements
-
-            bool isEqual5 = CompareArrays(lotto, dinRad, 5);
-            bool isEqual6 = CompareArrays(lotto, dinRad, 6);
-            bool isEqual7 = CompareArrays(lotto, dinRad, 7);
-
-            if (isEqual5)
-                Debug.WriteLine("5 Correct");
-            else
-                Debug.WriteLine("NOT 5 Correct");
-
-            if (isEqual6)
-                Debug.WriteLine("6 Correct");
-            else
-                Debug.WriteLine("NOT 6 Correct");
-
-            if (isEqual7)
-                Debug.WriteLine("7 Correct");
-            else
-                Debug.WriteLine("NOT 7 Correct");
-
-
-        }
-        bool ArraysEqualUpToLength(int[] array1, int[] array2, int length)
-        {
-            if (array1.Length < length || array2.Length < length)
-            {
-                // Arrays are not long enough to compare up to the specified length
-                return false;
-            }
-
-            int matchingCount = 0;
-
-            for (int i = 0; i < length; i++)
-            {
-                if (array1[i] == array2[i])
-                {
-                    matchingCount++;
-                }
-            }
-
-            // Check if at least "length" elements are the same
-            return matchingCount >= length;
-        }
-        bool is567Correct(int[] array1, int[] array2, int length)
-        {
-            int count= 0;
-            if (array1.Length < length || array2.Length < length)
-            {
-                // Arrays are not long enough to compare up to the specified length
-                return false;
-            }
-            for (int i = 0; i < n; i++)
-            {
-                //bool isCorr567;                
-
-                //do
-                //{
-                    //dinRad[i] = int.Parse(tbox[i].Text.ToString());
-                    //isCorr567 = false;
-                    //count = 0;
-
-                    for (int j = 0; j < i; j++) // check for duplicate => if so generate random again
-                    {
-                    //Debug.WriteLine($"Count: {count}");
-                    if (array1[i] == array2[j])
-                        {
-                            //isCorr567 |= true;
-                            count++;
-                        Debug.WriteLine($"Count: {count}");
-                            //return true;
-                        }
-                    continue;
-                    }
-                //} while (i != 6);
-
-                //dinRad[i] = int.Parse(tbox[i].Text.ToString());
-            }
-            return count >= length;
         }
         bool CompareArrays(int[] array1, int[] array2, int length)
         {
