@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="Lab2_Calculator.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lab2_Calculator"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Calculator" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Center" Margin="0,20,0,20"/>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="110, 0, 110, 0" Width="270">
+                <TextBlock x:Name="txtBlockShow"  HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" TextAlignment="Right" FontSize="30" TextWrapping="Wrap"/>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="7" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="8" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="9" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="÷" Click="BtnOp_Click" Width="60" Height="60" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="4" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="5" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="6" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="x" Click="BtnOp_Click" Width="60" Height="60" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="1" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="2" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="3" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="-" Click="BtnOp_Click" Width="60" Height="60" Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="C" Click="BtnClr_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="0" Click="BtnNum_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="=" Click="BtnEql_Click" Width="60" Height="60" Margin="5"/>
+            <Button Content="+" Click="BtnOp_Click" Width="60" Height="60" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Page>
