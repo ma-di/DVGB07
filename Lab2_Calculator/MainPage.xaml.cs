@@ -27,6 +27,7 @@ namespace Lab2_Calculator
         private string inputOp = "";
         private int currVal = 0;
         private int prevVal = 0;
+        private int resVal = 0;
         private bool isNewCalc = true;
         private bool isNumClicked = false;
 
@@ -66,7 +67,7 @@ namespace Lab2_Calculator
                     prevVal = int.Parse(inputVal);
                     isNewCalc = false;
                     inputVal = string.Empty;
-
+                    Debug.WriteLine($"In Opr= curr: {currVal} prev: {prevVal} res: {resVal} input: {inputVal}");
                     //}
                 }
                 catch (OverflowException)
@@ -90,7 +91,9 @@ namespace Lab2_Calculator
         private void BtnEql_Click(object sender, RoutedEventArgs e)
         {
             Calculate();
-            inputVal = currVal.ToString();
+            resVal = currVal + prevVal;
+            inputVal = resVal.ToString();
+            Debug.WriteLine($"In BTN= curr: {currVal} prev: {prevVal}");
             isNewCalc = true;
         }
 
@@ -112,7 +115,7 @@ namespace Lab2_Calculator
                         txtBlockShow.Text = "Err: Too big or small number";
                         return;
                     }
-                    currVal = prevVal + currVal;
+                    resVal = prevVal + currVal;
                     break;
                 case "-":
                     if (prevVal < 0 && currVal < 0 && prevVal - currVal < prevVal)
@@ -120,7 +123,7 @@ namespace Lab2_Calculator
                         txtBlockShow.Text = "Err: Too big or small number";
                         return;
                     }
-                    currVal = prevVal - currVal;
+                    resVal = prevVal - currVal;
                     break;
                 case "x":
                     if (prevVal != 0 && currVal != 0 && prevVal * currVal / currVal != prevVal)
@@ -128,11 +131,11 @@ namespace Lab2_Calculator
                         txtBlockShow.Text = "Err: Too big or small number";
                         return;
                     }
-                    currVal = prevVal * currVal;
+                    resVal = prevVal * currVal;
                     break;
                 case "÷":
                     if (currVal != 0)
-                        currVal = prevVal / currVal;
+                        resVal = prevVal / currVal;
                     else
                     {
                         //DisplayTextBox.FontSize = 12;
@@ -143,9 +146,11 @@ namespace Lab2_Calculator
                     break;
             }
 
-            txtBlockShow.Text = currVal.ToString();
-            prevVal = currVal;
-            inputVal = string.Empty;
+            txtBlockShow.Text = resVal.ToString();
+            //prevVal = currVal-prevVal;
+            
+            inputVal = resVal.ToString();
+            Debug.WriteLine($"In Cal= curr: {currVal} prev: {prevVal} res: {resVal} input: {inputVal}");
         }
     }
 }
