@@ -26,14 +26,11 @@ namespace Notepad_text_editor
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        string[] readText= new string[1000];
         string filnamn;
-        //FileOpenPicker picker;
         StorageFile file;
         public MainPage()
         {
             this.InitializeComponent();
-            //picker = new FileOpenPicker();
         }
 
         private void tBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -60,9 +57,10 @@ namespace Notepad_text_editor
 
         private async void OpenBtn_Click(object sender, RoutedEventArgs e)
         {
-            var picker = new FileOpenPicker();
-            picker.ViewMode = PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+
+            var picker = new FileOpenPicker();            
+            picker.ViewMode =PickerViewMode.Thumbnail;
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
             picker.FileTypeFilter.Add(".txt");
 
             file = await picker.PickSingleFileAsync();
@@ -74,50 +72,30 @@ namespace Notepad_text_editor
                 tBox.Text = txt;
             }
             else
-            {
                 Debug.WriteLine("Operation cancelled.");
-            }
         }
 
         private async void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (file != null)
-            {
+            if (file !=null)
                 await FileIO.WriteTextAsync(file, tBox.Text);
-            }
             else
             {
-                Debug.WriteLine("No file to save.");
+                var picker = new FileSavePicker();
+                picker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
+                //if (picker.FileTypeChoices.Count > 0)
 
-
-                var savePicker = new FileSavePicker();
-                StorageFolder folder = ApplicationData.Current.LocalFolder;
-
-                savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-                savePicker.SuggestedFileName = "New Document";
-                StorageFile file = await savePicker.PickSaveFileAsync();
+                picker.SuggestedFileName = "New Document";
+                file = await picker.PickSaveFileAsync();
                 if (file != null)
                 {
-                    try
-                    {
-                        await FileIO.WriteTextAsync(file, tBox.Text);
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        // Handle unauthorized access exception by prompting the user to choose a different location
-                        var picker2 = new FileSavePicker();
-                        picker2.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-                        picker2.SuggestedFileName = file.Name; // Use the original file name as the suggested name
-                        StorageFile newFile = await picker2.PickSaveFileAsync();
-                        if (newFile != null)
-                        {
-                            await FileIO.WriteTextAsync(newFile, tBox.Text);
-                        }
-                    }
+                    await FileIO.WriteTextAsync(file, tBox.Text);
+                    fileName.Text = file.Name;
                 }
-
+                
             }
         }
+
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
@@ -160,10 +138,11 @@ namespace Notepad_text_editor
             //if (picker.FileTypeChoices.Count > 0)
 
             picker.SuggestedFileName = "New Document";
-            StorageFile file = await picker.PickSaveFileAsync();
+            file = await picker.PickSaveFileAsync();
             if (file != null)
             {
                 await FileIO.WriteTextAsync(file, tBox.Text);
+                fileName.Text = file.Name;
             }
         }
 
