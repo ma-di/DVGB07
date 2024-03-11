@@ -1,4 +1,4 @@
-﻿<Page Loaded="Page_Loaded"
+﻿<Page 
     x:Class="Notepad_text_editor.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,6 +10,10 @@
 
 
     <Grid  Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -17,8 +21,21 @@
         <Button x:Name="OpenBtn" Click="OpenBtn_Click" Margin="5,50,5,5" Content="Open" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <Button x:Name="saveBtn" Click="saveBtn_Click" Margin="5,100,5,5" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <Button x:Name="saveAsBtn" Click="saveAsBtn_Click" Margin="5,150,5,5" Content="Save as" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
+        <Button x:Name="closeBtn" Click="closeBtn_Click" Margin="5,300,5,5" Content="Close" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <!--CharacterReceived="tBox_CharacterReceived"-->
         <TextBlock x:Name="fileName" Grid.Column="1" HorizontalAlignment="Stretch"  Text="File name: "></TextBlock>
-        <TextBox x:Name="tBox" Grid.Column="1" TextWrapping="Wrap" KeyDown="tBox_KeyDown"  VerticalContentAlignment="Center" Margin="0,20,0,0" Background="White" PlaceholderText="write your text here"  Width="auto" TextChanged="tBox_TextChanged" AcceptsReturn="True" TabIndex="8" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+        <TextBox x:Name="tBox" Grid.Column="1" TextWrapping="Wrap" KeyDown="tBox_KeyDown"  VerticalContentAlignment="Center" Margin="0,20,0,0" Background="White" PlaceholderText="write your text here"  Width="auto" TextChanged="tBox_TextChanged" CharacterReceived="tBox_CharacterReceived" AcceptsReturn="True" TabIndex="8" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name= "cahrsCounter" Text="Chars" Grid.Column="0"></TextBlock>
+            <TextBlock x:Name= "charCounter" Text="Char" Grid.Column="1"></TextBlock>
+            <TextBlock x:Name= "wordCounter" Text="Words" Grid.Column="2"></TextBlock>
+            <TextBlock x:Name= "lineCounter"  Text="Lines" Grid.Column="3"></TextBlock>
+        </Grid>
     </Grid>
 </Page>
