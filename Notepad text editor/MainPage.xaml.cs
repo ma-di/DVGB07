@@ -88,7 +88,6 @@ namespace Notepad_text_editor
                     var msgDialog = new MessageDialog($"Do you want to save changes to {file.Name}") { Title = "Tip title" };
                     msgDialog.Commands.Add(new UICommand("Yes", uiCommand => { 
                         Debug.WriteLine($"You click：{uiCommand.Label}"); 
-                        // Do the same as Save btn
                         saveBtn_Click(sender, e);
                         if (isSaved)
                         {
@@ -113,7 +112,6 @@ namespace Notepad_text_editor
                     var msgDialog = new MessageDialog($"Do you want to save changes to New Document") { Title = "Tip title" };
                     msgDialog.Commands.Add(new UICommand("Yes", uiCommand => {
                         Debug.WriteLine($"You click：{uiCommand.Label}");
-                        // Do the same as Save btn
                         saveBtn_Click(sender, e);
                         if (isSaved)
                         {
@@ -135,10 +133,11 @@ namespace Notepad_text_editor
             else
             {
                 openFile();
+                Debug.WriteLine($"IsCharReceived：{IsCharacterReceived}");
             }
             
         }
-        private async Task<bool> openFile()
+        private async void openFile()
         {
             var picker = new FileOpenPicker();
             picker.ViewMode = PickerViewMode.Thumbnail;
@@ -153,15 +152,12 @@ namespace Notepad_text_editor
                 string txt = await FileIO.ReadTextAsync(file);
                 tBox.Text = txt;
                 isSaved = true;
-                return true;
             }
             else
             {
-                //IsCharacterReceived = false;
                 Debug.WriteLine("Operation cancelled.");
-                return false;
+                isSaved = false;
             }
-            return false;
         }
 
         private async void saveBtn_Click(object sender, RoutedEventArgs e)
@@ -200,8 +196,6 @@ namespace Notepad_text_editor
         {
             var picker = new FileSavePicker();
             picker.FileTypeChoices.Add("Plain Text", new List<string>() { ".txt" });
-            //if (picker.FileTypeChoices.Count > 0)
-
             picker.SuggestedFileName = "New Document";
             file = await picker.PickSaveFileAsync();
             if (file != null)
@@ -209,25 +203,6 @@ namespace Notepad_text_editor
                 await FileIO.WriteTextAsync(file, tBox.Text);
                 fileName.Text = file.Name;
                 IsCharacterReceived = false;
-            }
-        }
-        private async void ShowMessageDialog()
-        {
-            if (file != null)
-            {
-                var msgDialog = new MessageDialog($"Do you want to save changes to {file.Name}") { Title = "Tip title" };
-                msgDialog.Commands.Add(new UICommand("Yes", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                msgDialog.Commands.Add(new UICommand("No", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                msgDialog.Commands.Add(new UICommand("Cancel", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                await msgDialog.ShowAsync();
-            }
-            else
-            {
-                var msgDialog = new MessageDialog($"Do you want to save changes to New Document") { Title = "Tip title" };
-                msgDialog.Commands.Add(new UICommand("Yes", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                msgDialog.Commands.Add(new UICommand("No", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                msgDialog.Commands.Add(new UICommand("Cancel", uiCommand => { Debug.WriteLine($"You click：{uiCommand.Label}"); }));
-                await msgDialog.ShowAsync();
             }
         }
         private int allCharCount()
@@ -253,54 +228,12 @@ namespace Notepad_text_editor
             Debug.WriteLine($"char count: {count}");
             return count;
         }
-        private void wordCount()
-        {
-            int count = 0, i, len;
-            char lastC =' ';
-            len = tBox.Text.Length;
-            if (len > 0)
-            {
-                lastC = tBox.Text[0];
-            }
-            for (i = 0; i <= len; i++)
-            {
-                if ((tBox.Text[i] == ' ' || tBox.Text[i] == '\0') && lastC != ' ')
-                {
-                    count++;
-                }
-                lastC = tBox.Text[i];
-            }
-
-
-                //int count = 0;
-                //foreach (char c in tBox.Text)
-                //{
-                //    if (c!= '\n' || c!= ' ' || c!= '\t' || c!= '\r')
-                //        count++;
-                //}
-                Debug.WriteLine($"word count: {count}");
-            //for (int i = 0; i < tBox.Text.Length; i++)
-            //{
-            //    if (c == '\n' || c == ' ' || c == '\t' || c == '\r')
-            //        count++;
-            //}
-        }
-        bool isWhiteSpace(char c)
-        {
-            if (c == ' ' || c == '\t' || c == '\n')
-                return true;
-            return false;
-        }
-
         private int wordCountr()
         {
-            string s = tBox.Text;
             char[] delimiters = new char[] { ' ', '\r', '\n', '\t' };
             int count = 0;
-            //s.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
             count= tBox.Text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length;
-            Debug.WriteLine($"char count: {count}");
-            return count;
+            return count = tBox.Text.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Length; ;
         }
 
         private int lineCount()
@@ -361,6 +294,12 @@ namespace Notepad_text_editor
             {
                 Application.Current?.Exit();
             }
+        }
+
+        private void clearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            tBox.Text = "";
+
         }
     }
 }

@@ -22,6 +22,7 @@
         <Button x:Name="saveBtn" Click="saveBtn_Click" Margin="5,100,5,5" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <Button x:Name="saveAsBtn" Click="saveAsBtn_Click" Margin="5,150,5,5" Content="Save as" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <Button x:Name="closeBtn" Click="closeBtn_Click" Margin="5,300,5,5" Content="Close" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
+        <Button x:Name="clearBtn" Click="clearBtn_Click" Margin="5,200,5,5" Content="Clear" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Button>
         <!--CharacterReceived="tBox_CharacterReceived"-->
         <TextBlock x:Name="fileName" Grid.Column="1" HorizontalAlignment="Stretch"  Text="File name: "></TextBlock>
         <TextBox x:Name="tBox" Grid.Column="1" TextWrapping="Wrap" KeyDown="tBox_KeyDown"  VerticalContentAlignment="Center" Margin="0,20,0,0" Background="White" PlaceholderText="write your text here"  Width="auto" TextChanged="tBox_TextChanged" CharacterReceived="tBox_CharacterReceived" AcceptsReturn="True" TabIndex="8" ScrollViewer.VerticalScrollBarVisibility="Auto"></TextBox>
